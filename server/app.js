@@ -1,7 +1,5 @@
 import express from "express";
-import { PrismaClient } from "./generated/prisma/default.js";
-
-const prisma = new PrismaClient();
+import { signIn, signUp } from "./controllers/auth.ts";
 
 const app = express();
 const port = 3000;
@@ -9,16 +7,11 @@ const port = 3000;
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("Hello world");
+  res.send("Vai corinthians!!!");
 });
 
-app.post("/signup", async (req, res) => {
-  const { email, name } = req.body;
-  const result = await prisma.user.create({
-    data: { email, name },
-  });
-  res.json(result);
-});
+app.post("/signup", signUp);
+app.post("/signin", signIn);
 
 app.listen(port, () => {
   console.log(`Servidor Ligado! http://localhost:${port}`);
