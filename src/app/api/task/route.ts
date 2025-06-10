@@ -7,16 +7,16 @@ export async function GET(req: NextRequest) {
     const decoded: any = verifyToken(req);
     const userId = decoded.id;
 
-    const todos = await prisma.user.findMany({
+    const tasks = await prisma.user.findMany({
       where: { id: userId },
       select: {
-        todos: {
+        task: {
           orderBy: { createdAt: "asc" },
         },
       },
     });
 
-    return NextResponse.json(todos, { status: 200 });
+    return NextResponse.json(tasks, { status: 200 });
   } catch (err: any) {
     return NextResponse.json({ err: err.message }, { status: 500 });
   }
@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const newTask = await prisma.todo.create({
+    const newTask = await prisma.task.create({
       data: {
         title,
         description,
