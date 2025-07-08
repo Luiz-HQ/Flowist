@@ -10,6 +10,7 @@ export default function Footer() {
           Desenvolvido por{" "}
           <a
             href="https://www.linkedin.com/in/luizhenriquecomunicador/"
+            target="_blank"
             className="text-blue-400 hover:underline"
           >
             Luiz Henrique{" "}

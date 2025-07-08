@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import prisma from "../../../../../lib/prisma";
+import prisma from "../../../../lib/prisma";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
@@ -28,7 +28,7 @@ export async function POST(request: Request) {
 
     if (!isPasswordValid) {
       return NextResponse.json(
-        { message: "Credenciais inválidas." },
+        { message: "Usuário não encontrado." },
         { status: 401 }
       );
     }
