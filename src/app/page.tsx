@@ -1,9 +1,9 @@
 "use client";
-import Header from "@/components/header";
+import Header from "@/components/layout/header";
 import { useEffect, useState } from "react";
 import todoImg from "@/assets/todoimg.webp";
 import Image from "next/image";
-import Footer from "@/components/footer";
+import Footer from "@/components/layout/footer";
 
 export default function Home() {
   const words = ["crie", "complete", "edite", "delete"];
