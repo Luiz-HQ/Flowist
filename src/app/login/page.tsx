@@ -99,7 +99,7 @@ export default function Login() {
             <CardFooter className="flex flex-col gap-4">
               <Button
                 onClick={handleLogin}
-                className="w-full bg-purple-600 hover:bg-purple-500 transition duration-200"
+                className="w-full bg-blue-600 hover:bg-blue-500 transition duration-200"
               >
                 Entrar
               </Button>
@@ -146,7 +146,7 @@ export default function Login() {
             <CardFooter className="flex flex-col gap-4">
               <Button
                 onClick={handleRegister}
-                className="w-full bg-purple-600 hover:bg-purple-500 transition duration-200"
+                className="w-full bg-blue-600 hover:bg-blue-500 transition duration-200"
               >
                 Criar conta
               </Button>

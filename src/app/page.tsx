@@ -34,7 +34,7 @@ export default function Home() {
               Bem vindo ao seu TodoApp
               <p className="text-3xl pt-5">
                 <span
-                  className={`text-purple-600 transition-opacity duration-500 mr-2 ${
+                  className={`text-blue-600 transition-opacity duration-500 mr-2 ${
                     visible ? "opacity-100" : "opacity-0"
                   }`}
                 >
