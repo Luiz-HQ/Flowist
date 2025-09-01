@@ -1,13 +1,26 @@
+"use client";
+
 import Image from "next/image";
 import logotipo from "@/assets/logotipo.png";
 import { Input } from "../ui/input";
 import { Icon } from "@iconify/react";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
+import { useRouter } from "next/navigation";
 
 export default function DashboardHeader() {
+  const router = useRouter();
+
+  const handleLogout = () => {
+    const confirmLogout = window.confirm("Você tem certeza que deseja sair?");
+    if (confirmLogout) {
+      localStorage.removeItem("token");
+      router.push("/");
+    }
+  };
+
   return (
-    <header className="bg-transparent border-b p-5 flex justify-between items-center">
+    <header className="bg-white border-b p-5 flex justify-between items-center">
       <Image src={logotipo} alt="logotipo" width={40} />
 
       <div className="flex items-center gap-x-4">
@@ -31,14 +44,17 @@ export default function DashboardHeader() {
           <AvatarImage src="https://github.com/shadcn.png" />
         </Avatar>
 
-        <a href="/">
+        <Button
+          onClick={handleLogout}
+          className="bg-transparent hover:bg-red-300 focus:ring-0 border-0 transition-transform duration-200 hover:scale-125"
+        >
           <Icon
             icon="material-symbols:logout"
             width={25}
             height={25}
-            className="text-red-600 transition-transform duration-200 hover:scale-125 hover:text-red-500"
+            className="text-red-600"
           />
-        </a>
+        </Button>
       </div>
     </header>
   );
