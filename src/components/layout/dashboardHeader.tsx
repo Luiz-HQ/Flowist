@@ -7,6 +7,9 @@ import { Icon } from "@iconify/react";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
+import { NextRequest } from "next/server";
+import { logout } from "@/services/auth";
 
 export default function DashboardHeader() {
   const router = useRouter();
@@ -14,7 +17,7 @@ export default function DashboardHeader() {
   const handleLogout = () => {
     const confirmLogout = window.confirm("Você tem certeza que deseja sair?");
     if (confirmLogout) {
-      localStorage.removeItem("token");
+      logout();
       router.push("/");
     }
   };

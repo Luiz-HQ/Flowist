@@ -31,3 +31,27 @@ export async function register(name: string, email: string, password: string) {
 
   return res.json();
 }
+
+export async function logout() {
+  const res = await fetch("/api/auth/logout", {
+    method: "POST",
+  });
+
+  if (!res.ok) {
+    const error = await res.json();
+    throw new Error(error.message || "Erro ao fazer logout");
+  }
+
+  return res.json();
+}
+
+export async function me() {
+  const res = await fetch("/api/auth/me");
+
+  if (!res.ok) {
+    const error = await res.json();
+    throw new Error(error.message || "Erro ao buscar dados do usuário");
+  }
+
+  return res.json();
+}

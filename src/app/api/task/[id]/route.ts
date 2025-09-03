@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "../../../../lib/prisma";
-import { verifyToken } from "../../middleware/verifyToken";
+import { getUserFromRequest } from "@/lib/session";
 
 export async function PUT(
   req: NextRequest,
   { params }: { params: { id: string } }
 ) {
   try {
-    const decoded: any = verifyToken(req);
-    const userId = decoded.id;
+    const user = await getUserFromRequest(req);
+    const userId = user.id;
 
     const { title, description, done } = await req.json();
     const { id } = params;
@@ -46,8 +46,8 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
-    const decoded: any = verifyToken(req);
-    const userId = decoded.id;
+    const user = await getUserFromRequest(req);
+    const userId = user.id;
 
     const { id } = params;
 

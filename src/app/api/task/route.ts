@@ -1,31 +1,27 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "../../../lib/prisma";
-import { verifyToken } from "../middleware/verifyToken";
+import { getUserFromRequest } from "@/lib/session";
 
 export async function GET(req: NextRequest) {
   try {
-    const decoded: any = verifyToken(req);
-    const userId = decoded.id;
+    const user = await getUserFromRequest(req);
 
-    const tasks = await prisma.user.findMany({
-      where: { id: userId },
-      select: {
-        task: {
-          orderBy: { createdAt: "asc" },
-        },
+    const tasks = await prisma.task.findMany({
+      where: {
+        userId: user.id,
       },
     });
 
     return NextResponse.json(tasks, { status: 200 });
   } catch (err: any) {
-    return NextResponse.json({ err: err.message }, { status: 500 });
+    return NextResponse.json({ err: err.message }, { status: 401 });
   }
 }
 
 export async function POST(req: NextRequest) {
   try {
-    const decoded: any = verifyToken(req);
-    const userId = decoded.id;
+    const user = await getUserFromRequest(req);
+    const userId = user.id;
 
     const body = await req.json();
     const { title, description } = body;

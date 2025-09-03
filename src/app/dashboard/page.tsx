@@ -8,6 +8,7 @@ import TaskCard from "@/components/layout/taskCard";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Footer from "@/components/layout/footer";
+import { me } from "@/services/auth";
 
 interface DecodedToken {
   name: string;
@@ -19,16 +20,18 @@ export default function Dashboard() {
   const [userId, setUserId] = useState("");
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
+    const fetchUser = async () => {
       try {
-        const decoded = jwtDecode<DecodedToken>(token);
-        setUserName(decoded.name);
-        setUserId(decoded.id);
+        const userData = await me();
+
+        setUserName(userData.name || "Usuário");
+        setUserId(userData.id);
       } catch (error) {
-        console.error("Erro ao decodificar o token:", error);
+        console.error("Falha na autenticação:", error);
       }
-    }
+    };
+
+    fetchUser();
   }, []);
 
   return (

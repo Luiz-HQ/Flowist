@@ -31,7 +31,6 @@ export default function Login() {
     try {
       const res = await login(email, password);
       console.log(res);
-      localStorage.setItem("token", res.token);
       router.push("/dashboard");
     } catch (error: any) {
       setError(error.message || "Erro ao fazer login");

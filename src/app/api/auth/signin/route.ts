@@ -39,10 +39,23 @@ export async function POST(request: Request) {
       { expiresIn: "1h" }
     );
 
-    return NextResponse.json({
+    const responsePayload = {
       message: "Login realizado com sucesso!",
       token,
+    };
+
+    const response = NextResponse.json(responsePayload);
+
+    response.cookies.set("authToken", token, {
+      name: "authToken",
+      value: token,
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      path: "/",
+      maxAge: 60 * 60,
     });
+
+    return response;
   } catch (error) {
     console.error("Erro no login:", error);
     return NextResponse.json({ message: "Erro no servidor." }, { status: 500 });
