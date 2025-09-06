@@ -6,17 +6,17 @@ import {
 } from "@/components/ui/card";
 
 export default function ({
-  task,
+  title,
   description,
 }: {
-  task: string;
+  title: string;
   description: string;
 }) {
   return (
     <>
       <Card className="w-full max-w-2xl">
         <CardHeader>
-          <CardTitle className="text-2xl font-bold">{task}</CardTitle>
+          <CardTitle className="text-2xl font-bold">{title}</CardTitle>
           <CardDescription>{description}</CardDescription>
         </CardHeader>
       </Card>
