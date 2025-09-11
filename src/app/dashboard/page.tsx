@@ -25,6 +25,9 @@ export default function Dashboard() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [taskTitle, setTaskTitle] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
+  const [taskStatus, setTaskStatus] = useState<"todo" | "inProgress" | "done">(
+    "todo"
+  );
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -42,7 +45,7 @@ export default function Dashboard() {
     const fetchInitialData = async () => {
       try {
         const userData = await me();
-        setUserName(userData.name);
+        setUserName(userData.name || "");
         setUserId(userData.id);
 
         await fetchTasks();
@@ -60,16 +63,22 @@ export default function Dashboard() {
     }
 
     try {
-      await createTask(taskTitle, taskDescription);
+      await createTask({
+        title: taskTitle,
+        description: taskDescription,
+        status: taskStatus,
+      });
       await fetchTasks();
 
       console.log("Criando tarefa:", {
         title: taskTitle,
         description: taskDescription,
+        status: taskStatus,
       });
 
       setTaskTitle("");
       setTaskDescription("");
+      setTaskStatus("todo");
       setIsModalOpen(false);
     } catch (error) {
       console.error("Erro ao criar tarefa:", error);
@@ -96,41 +105,76 @@ export default function Dashboard() {
             </div>
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-              <p>5 - Em andamento</p>
+              <p>
+                {tasks &&
+                  tasks.filter((task) => task.status === "inProgress")
+                    .length}{" "}
+                {"- Em andamento"}
+              </p>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-              <p>2 - Concluído</p>
+              <p>
+                {tasks && tasks.filter((task) => task.status === "done").length}{" "}
+                {"- Concluído"}
+              </p>
             </div>
           </h2>
         </div>
 
         <div className="w-full max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
           <div className="flex justify-center gap-x-6">
-            <div className="w-1/3 max-w-sm bg-gray-50 rounded-lg shadow-md p-4">
+            <div className="w-1/3 max-w-sm bg-gray-50  rounded-[4px] shadow-md p-4">
               <h3 className="font-bold text-lg text-center mb-4">A fazer</h3>
               <div className="space-y-4">
                 {tasks &&
-                  tasks.map((task) => (
-                    <TaskCard
-                      key={task.id}
-                      title={task.title}
-                      description={task.description || ""}
-                    />
-                  ))}
+                  tasks
+                    .filter((task) => task.status === "todo")
+                    .map((task) => (
+                      <TaskCard
+                        key={task.id}
+                        title={task.title}
+                        description={task.description || ""}
+                        status={task.status}
+                      />
+                    ))}
               </div>
             </div>
 
-            <div className="w-1/3 max-w-sm bg-gray-50 rounded-lg shadow-md p-4">
+            <div className="w-1/3 max-w-sm bg-gray-50  rounded-[4px] shadow-md p-4">
               <h3 className="font-bold text-lg text-center mb-4">
                 Em andamento
               </h3>
-              <div className="space-y-4">{/* Cards here */}</div>
+              <div className="space-y-4">
+                {tasks &&
+                  tasks
+                    .filter((task) => task.status === "inProgress")
+                    .map((task) => (
+                      <TaskCard
+                        key={task.id}
+                        title={task.title}
+                        description={task.description || ""}
+                        status={task.status}
+                      />
+                    ))}
+              </div>
             </div>
 
-            <div className="w-1/3 max-w-sm bg-gray-50 rounded-lg shadow-md p-4">
+            <div className="w-1/3 max-w-sm bg-gray-50  rounded-[4px] shadow-md p-4">
               <h3 className="font-bold text-lg text-center mb-4">Concluído</h3>
-              <div className="space-y-4">{/* Cards here */}</div>
+              <div className="space-y-4">
+                {tasks &&
+                  tasks
+                    .filter((task) => task.status === "done")
+                    .map((task) => (
+                      <TaskCard
+                        key={task.id}
+                        title={task.title}
+                        description={task.description || ""}
+                        status={task.status}
+                      />
+                    ))}
+              </div>
             </div>
           </div>
         </div>
@@ -141,9 +185,9 @@ export default function Dashboard() {
         <div className="flex justify-center gap-x-2 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
             <DialogTrigger asChild>
-              <Button className="w-1/2">Criar Tarefa</Button>
+              <Button className="w-1/2 rounded-[4px]">Criar Tarefa</Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
+            <DialogContent className="rounded-[4px] sm:max-w-[425px]">
               <DialogHeader>
                 <DialogTitle>Criar Nova Tarefa</DialogTitle>
                 <DialogDescription>
@@ -161,10 +205,11 @@ export default function Dashboard() {
                     id="title"
                     value={taskTitle}
                     onChange={(e) => setTaskTitle(e.target.value)}
-                    className="col-span-3"
+                    className="rounded-[4px] col-span-3"
                     placeholder="Ex: Estudar documentação do Next.js"
                   />
                 </div>
+
                 <div className="grid grid-cols-4 items-center gap-4">
                   <Label htmlFor="description" className="text-right">
                     Descrição
@@ -173,14 +218,85 @@ export default function Dashboard() {
                     id="description"
                     value={taskDescription}
                     onChange={(e) => setTaskDescription(e.target.value)}
-                    className="col-span-3"
+                    className="rounded-[4px] col-span-3"
                     placeholder="(Opcional)"
                   />
+                </div>
+
+                <div className="flex">
+                  <Label htmlFor="status" className="text-right">
+                    Status:
+                  </Label>
+                  <div className="flex gap-4 justify-end items-end w-full">
+                    <Label
+                      htmlFor="status-todo"
+                      className="flex items-center gap-1 cursor-pointer"
+                    >
+                      <Input
+                        id="status-todo"
+                        type="radio"
+                        name="task-status-group"
+                        value="todo"
+                        checked={taskStatus === "todo"}
+                        onChange={(e) =>
+                          setTaskStatus(
+                            e.target.value as "todo" | "inProgress" | "done"
+                          )
+                        }
+                        className="size-[12px] cursor-pointer"
+                      />
+                      <span className="text-sm">A fazer</span>
+                    </Label>
+
+                    <Label
+                      htmlFor="status-inProgress"
+                      className="flex items-center gap-1 cursor-pointer"
+                    >
+                      <Input
+                        id="status-inProgress"
+                        type="radio"
+                        name="task-status-group"
+                        value="inProgress"
+                        checked={taskStatus === "inProgress"}
+                        onChange={(e) =>
+                          setTaskStatus(
+                            e.target.value as "todo" | "inProgress" | "done"
+                          )
+                        }
+                        className="size-[12px] cursor-pointer"
+                      />
+                      <span className="text-sm">Em andamento</span>
+                    </Label>
+
+                    <Label
+                      htmlFor="status-concluido"
+                      className="flex items-center gap-1 cursor-pointer"
+                    >
+                      <Input
+                        id="status-concluido"
+                        type="radio"
+                        name="task-status-group"
+                        value="done"
+                        checked={taskStatus === "done"}
+                        onChange={(e) =>
+                          setTaskStatus(
+                            e.target.value as "todo" | "inProgress" | "done"
+                          )
+                        }
+                        className="size-[12px] cursor-pointer"
+                      />
+                      <span className="text-sm">Concluído</span>
+                    </Label>
+                  </div>
                 </div>
               </div>
 
               <DialogFooter>
-                <Button type="submit" onClick={handleCreateTask}>
+                <Button
+                  className=" rounded-[4px]"
+                  type="submit"
+                  onClick={handleCreateTask}
+                >
                   Salvar Tarefa
                 </Button>
               </DialogFooter>

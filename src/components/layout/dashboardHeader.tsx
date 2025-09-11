@@ -36,7 +36,7 @@ export default function DashboardHeader() {
           />
           {/* 3. Add padding to the input to make space for the icon */}
           <Input
-            className="w-full pl-10 py-4 border rounded-lg" // `pl-10` makes space
+            className="w-full pl-10 py-4 border rounded-[4px]" // `pl-10` makes space
             type="text"
             placeholder="Procure sua tarefa..."
           />
@@ -48,13 +48,13 @@ export default function DashboardHeader() {
 
         <Button
           onClick={handleLogout}
-          className="bg-transparent hover:bg-red-300 focus:ring-0 border-0 transition-transform duration-200 hover:scale-125"
+          className=" bg-transparent size-[25px] shadow-none hover:bg-transparent focus:ring-0 border-0 transition-transform duration-200 hover:scale-140"
         >
           <Icon
             icon="material-symbols:logout"
             width={25}
             height={25}
-            className="text-red-600"
+            className="text-red-500 size-[20px]"
           />
         </Button>
       </div>

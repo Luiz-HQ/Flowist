@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
     const userId = user.id;
 
     const body = await req.json();
-    const { title, description } = body;
+    const { title, description, status } = body;
 
     if (!title) {
       return NextResponse.json(
@@ -37,6 +37,7 @@ export async function POST(req: NextRequest) {
       data: {
         title,
         description,
+        status,
         userId,
       },
     });

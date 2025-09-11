@@ -60,16 +60,19 @@ export default function Login() {
         className="w-full max-w-sm m-4 md:m-0 gap-6"
         defaultValue="login"
       >
-        <TabsList className="w-full ">
-          <TabsTrigger className="cursor-pointer" value="login">
+        <TabsList className="w-full">
+          <TabsTrigger className="rounded-[4px] cursor-pointer" value="login">
             Logar
           </TabsTrigger>
-          <TabsTrigger className="cursor-pointer" value="register">
+          <TabsTrigger
+            className="rounded-[4px] cursor-pointer"
+            value="register"
+          >
             Cadastrar
           </TabsTrigger>
         </TabsList>
         <TabsContent value="login">
-          <Card>
+          <Card className=" rounded-[4px]">
             <CardHeader>
               <CardTitle>Todo-App</CardTitle>
               <CardDescription>
@@ -84,6 +87,7 @@ export default function Login() {
                   id="tabs-demo-name"
                   placeholder="seuemail@email.com"
                   onChange={(e) => setEmail(e.target.value)}
+                  className="rounded-[4px]"
                 />
               </div>
               <div className="grid gap-3">
@@ -92,13 +96,14 @@ export default function Login() {
                   type="password"
                   id="tabs-demo-username"
                   onChange={(e) => setPasword(e.target.value)}
+                  className="rounded-[4px]"
                 />
               </div>
             </CardContent>
             <CardFooter className="flex flex-col gap-4">
               <Button
                 onClick={handleLogin}
-                className="w-full bg-blue-600 hover:bg-blue-500 transition duration-200"
+                className="rounded-[4px] w-full bg-blue-600 hover:bg-blue-500 transition duration-200"
               >
                 Entrar
               </Button>
@@ -107,7 +112,7 @@ export default function Login() {
           </Card>
         </TabsContent>
         <TabsContent value="register">
-          <Card>
+          <Card className="rounded-[4px]">
             <CardHeader>
               <CardTitle>Todo-App</CardTitle>
               <CardDescription>
@@ -122,6 +127,7 @@ export default function Login() {
                   type="name"
                   placeholder="Seu nome"
                   onChange={(e) => setName(e.target.value)}
+                  className="rounded-[4px]"
                 />
               </div>
               <div className="grid gap-3">
@@ -131,6 +137,7 @@ export default function Login() {
                   type="email"
                   placeholder="seuemail@email.com"
                   onChange={(e) => setEmail(e.target.value)}
+                  className="rounded-[4px]"
                 />
               </div>
               <div className="grid gap-3">
@@ -139,13 +146,14 @@ export default function Login() {
                   id="tabs-demo-new"
                   type="password"
                   onChange={(e) => setPasword(e.target.value)}
+                  className="rounded-[4px]"
                 />
               </div>
             </CardContent>
             <CardFooter className="flex flex-col gap-4">
               <Button
                 onClick={handleRegister}
-                className="w-full bg-blue-600 hover:bg-blue-500 transition duration-200"
+                className="rounded-[4px] w-full bg-blue-600 hover:bg-blue-500 transition duration-200"
               >
                 Criar conta
               </Button>

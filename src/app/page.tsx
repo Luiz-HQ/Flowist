@@ -49,9 +49,9 @@ export default function Home() {
             <Image
               src={todoImg}
               alt="todo image"
-              className="w-1/3 m-auto border-2 rounded-2xl border-gray-500"
+              className="w-1/3 m-auto border-2 rounded-[4px] border-gray-500"
             />
-            <p className="bg-gray-50 rounded-2xl p-5 text-xl w-1/2">
+            <p className="bg-gray-50 rounded-[4px] p-5 text-xl w-1/2">
               Organize suas tarefas diárias de forma simples e eficiente. Com o
               TodoApp, você pode criar, editar, concluir e excluir suas tarefas
               a qualquer momento. Tenha controle do seu dia, aumente sua

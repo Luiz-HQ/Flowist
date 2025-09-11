@@ -2,7 +2,7 @@ export interface Task {
   id: string;
   title: string;
   description?: string;
-  status: "todo" | "in-progress" | "done";
+  status: "todo" | "inProgress" | "done";
 }
 
 export async function getTasks(): Promise<Task[]> {
@@ -16,17 +16,20 @@ export async function getTasks(): Promise<Task[]> {
   return res.json();
 }
 
-export async function createTask(
-  taskTitle: string,
-  taskDescription: string
-): Promise<Task> {
+interface CreateTaskData {
+  title: string;
+  description?: string;
+  status: "todo" | "inProgress" | "done";
+}
+
+export async function createTask(data: CreateTaskData): Promise<Task> {
   const res = await fetch("/api/task", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
 
-    body: JSON.stringify({ title: taskTitle, description: taskDescription }),
+    body: JSON.stringify(data),
   });
 
   if (!res.ok) {

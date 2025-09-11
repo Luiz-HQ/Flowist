@@ -10,7 +10,9 @@ export default function Header() {
     <header className="bg-transparent border-b shadow text-white p-5 flex justify-between items-center">
       <Image src={logotipo} alt="logotipo" width={40} />
 
-      <Button onClick={() => router.push("/login")}>Login</Button>
+      <Button className="rounded-[4px]" onClick={() => router.push("/login")}>
+        Login
+      </Button>
     </header>
   );
 }

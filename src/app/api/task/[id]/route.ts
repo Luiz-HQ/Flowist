@@ -10,7 +10,7 @@ export async function PUT(
     const user = await getUserFromRequest(req);
     const userId = user.id;
 
-    const { title, description, done } = await req.json();
+    const { title, description, status } = await req.json();
     const { id } = params;
 
     const updatedTask = await prisma.task.updateMany({
@@ -18,7 +18,7 @@ export async function PUT(
       data: {
         title,
         description,
-        done,
+        status,
       },
     });
 
