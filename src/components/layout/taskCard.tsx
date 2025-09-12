@@ -6,27 +6,32 @@ import {
 } from "@/components/ui/card";
 import { Button } from "../ui/button";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import { Task } from "@/services/task";
 
-export default function TaskCard({
-  title,
-  description,
-  status,
-}: {
-  title: string;
-  description: string;
-  status: string;
-}) {
+interface TaskCardProps {
+  task: Task;
+  onDelete: (id: string) => void;
+  onEdit: (task: Task) => void;
+}
+
+export default function TaskCard({ task, onDelete, onEdit }: TaskCardProps) {
   return (
     <>
       <Card className="w-full max-w-2xl p-2 rounded-[4px]">
         <CardHeader>
-          <CardTitle className="text-2xl font-bold">{title}</CardTitle>
-          <CardDescription>{description}</CardDescription>
+          <CardTitle className="text-2xl font-bold">{task.title}</CardTitle>
+          <CardDescription>{task.description}</CardDescription>
           <div className="flex justify-end gap-1.5 mt-2">
-            <Button className="size-[25px] bg-transparent hover:bg-transparent shadow-none transition-transform duration-200 ease-in-out hover:scale-140">
+            <Button
+              onClick={() => onEdit(task)}
+              className="size-[25px] bg-transparent hover:bg-transparent shadow-none transition-transform duration-200 ease-in-out hover:scale-140"
+            >
               <Icon className="text-blue-500" icon="tabler:edit" />
             </Button>
-            <Button className="size-[25px] bg-transparent hover:bg-transparent shadow-none transition-transform duration-200 ease-in-out hover:scale-140">
+            <Button
+              onClick={() => onDelete(task.id)}
+              className="size-[25px] bg-transparent hover:bg-transparent shadow-none transition-transform duration-200 ease-in-out hover:scale-140"
+            >
               <Icon
                 className="text-red-500"
                 icon="material-symbols:delete-outline"

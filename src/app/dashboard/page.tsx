@@ -16,7 +16,13 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
-import { createTask, getTasks, Task } from "@/services/task";
+import {
+  createTask,
+  deleteTask,
+  getTasks,
+  Task,
+  updateTask,
+} from "@/services/task";
 
 export default function Dashboard() {
   const [userName, setUserName] = useState("");
@@ -30,6 +36,7 @@ export default function Dashboard() {
   );
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingTask, setEditingTask] = useState<Task | null>(null);
 
   const fetchTasks = async () => {
     try {
@@ -56,33 +63,74 @@ export default function Dashboard() {
     fetchInitialData();
   }, []);
 
-  const handleCreateTask = async () => {
+  const handleSaveTask = async () => {
     if (!taskTitle.trim()) {
       alert("O título da tarefa é obrigatório.");
       return;
     }
 
+    const taskData = {
+      title: taskTitle,
+      description: taskDescription,
+      status: taskStatus,
+    };
+
     try {
-      await createTask({
-        title: taskTitle,
-        description: taskDescription,
-        status: taskStatus,
-      });
-      await fetchTasks();
+      if (editingTask) {
+        // Edit mode
+        const updatedTask = await updateTask(editingTask.id, taskData);
 
-      console.log("Criando tarefa:", {
-        title: taskTitle,
-        description: taskDescription,
-        status: taskStatus,
-      });
+        setTasks((currentTasks) =>
+          currentTasks.map((task) =>
+            task.id === editingTask.id ? updatedTask : task
+          )
+        );
+      } else {
+        // Create mode
+        const newTask = await createTask(taskData);
+        setTasks((currentTasks) => [...currentTasks, newTask]);
+      }
 
+      setIsModalOpen(false);
+      setEditingTask(null);
+    } catch (error) {
+      console.error("Erro ao salvar tarefa:", error);
+      alert("Não foi possível salvar a tarefa.");
+    }
+  };
+
+  const handleCreateClick = () => {
+    setEditingTask(null);
+    setIsModalOpen(true);
+  };
+
+  const handleEditClick = (task: Task) => {
+    setEditingTask(task);
+    setIsModalOpen(true);
+  };
+
+  useEffect(() => {
+    if (editingTask) {
+      setTaskTitle(editingTask.title);
+      setTaskDescription(editingTask.description || "");
+      setTaskStatus(editingTask.status);
+    } else {
       setTaskTitle("");
       setTaskDescription("");
       setTaskStatus("todo");
-      setIsModalOpen(false);
+    }
+  }, [editingTask, isModalOpen]);
+
+  const handleDeleteTask = async (id: string) => {
+    const isConfirmed = confirm("Tem certeza que deseja deletar esta tarefa?");
+    if (!isConfirmed) return;
+
+    try {
+      await deleteTask(id);
+      setTasks((currentTasks) => currentTasks.filter((task) => task.id !== id));
     } catch (error) {
-      console.error("Erro ao criar tarefa:", error);
-      alert("Não foi possível criar a tarefa.");
+      console.error("Erro ao deletar tarefa:", error);
+      alert("Não foi possível deletar a tarefa.");
     }
   };
 
@@ -133,9 +181,9 @@ export default function Dashboard() {
                     .map((task) => (
                       <TaskCard
                         key={task.id}
-                        title={task.title}
-                        description={task.description || ""}
-                        status={task.status}
+                        task={task}
+                        onEdit={handleEditClick}
+                        onDelete={handleDeleteTask}
                       />
                     ))}
               </div>
@@ -152,9 +200,9 @@ export default function Dashboard() {
                     .map((task) => (
                       <TaskCard
                         key={task.id}
-                        title={task.title}
-                        description={task.description || ""}
-                        status={task.status}
+                        task={task}
+                        onEdit={handleEditClick}
+                        onDelete={handleDeleteTask}
                       />
                     ))}
               </div>
@@ -169,9 +217,9 @@ export default function Dashboard() {
                     .map((task) => (
                       <TaskCard
                         key={task.id}
-                        title={task.title}
-                        description={task.description || ""}
-                        status={task.status}
+                        task={task}
+                        onEdit={handleEditClick}
+                        onDelete={handleDeleteTask}
                       />
                     ))}
               </div>
@@ -185,11 +233,18 @@ export default function Dashboard() {
         <div className="flex justify-center gap-x-2 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
             <DialogTrigger asChild>
-              <Button className="w-1/2 rounded-[4px]">Criar Tarefa</Button>
+              <Button
+                onClick={handleCreateClick}
+                className="w-1/2 rounded-[4px]"
+              >
+                Criar Tarefa
+              </Button>
             </DialogTrigger>
             <DialogContent className="rounded-[4px] sm:max-w-[425px]">
               <DialogHeader>
-                <DialogTitle>Criar Nova Tarefa</DialogTitle>
+                <DialogTitle>
+                  {editingTask ? "Editar Tarefa" : "Criar Tarefa"}
+                </DialogTitle>
                 <DialogDescription>
                   Preencha os detalhes da sua nova tarefa. Clique em "Salvar"
                   para concluir.
@@ -295,7 +350,7 @@ export default function Dashboard() {
                 <Button
                   className=" rounded-[4px]"
                   type="submit"
-                  onClick={handleCreateTask}
+                  onClick={handleSaveTask}
                 >
                   Salvar Tarefa
                 </Button>

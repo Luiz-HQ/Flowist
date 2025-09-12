@@ -13,7 +13,7 @@ export async function PUT(
     const { title, description, status } = await req.json();
     const { id } = params;
 
-    const updatedTask = await prisma.task.updateMany({
+    const updatedTask = await prisma.task.update({
       where: { id, userId },
       data: {
         title,
@@ -22,20 +22,7 @@ export async function PUT(
       },
     });
 
-    if (updatedTask.count === 0) {
-      return NextResponse.json(
-        {
-          message:
-            "Tarefa não encontrada ou você não tem permissão para atualizá-la.",
-        },
-        { status: 404 }
-      );
-    }
-
-    return NextResponse.json(
-      { message: "Dados atualizados com sucesso!" },
-      { status: 200 }
-    );
+    return NextResponse.json(updatedTask, { status: 200 });
   } catch (err: any) {
     return NextResponse.json({ err: err.message }, { status: 500 });
   }
