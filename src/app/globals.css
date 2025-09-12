@@ -112,6 +112,29 @@
   --sidebar-ring: oklch(0.552 0.016 285.938);
 }
 
+@layer utilities {
+  /* Define a animação 'highlight-border' */
+  @keyframes highlight-border {
+    /* Início e fim: a borda é transparente */
+    0%,
+    100% {
+      border-color: transparent;
+      box-shadow: none;
+    }
+    /* Meio da animação: a borda fica azul e com uma sombra brilhante */
+    10%,
+    90% {
+      border-color: #3b82f6; /* Cor blue-500 do Tailwind */
+      box-shadow: 0 0 10px #3b82f6;
+    }
+  }
+
+  /* Cria a classe de utilitário que aplica a animação */
+  .animate-highlight {
+    animation: highlight-border 3s ease-in-out;
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

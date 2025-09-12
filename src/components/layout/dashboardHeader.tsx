@@ -10,7 +10,17 @@ import { useRouter } from "next/navigation";
 import { NextRequest } from "next/server";
 import { logout } from "@/services/auth";
 
-export default function DashboardHeader() {
+interface DashboardHeaderProps {
+  searchTerm: string;
+  onSearchChange: (term: string) => void;
+  onSearchSubmit?: (event: React.FormEvent) => void;
+}
+
+export default function DashboardHeader({
+  searchTerm,
+  onSearchChange,
+  onSearchSubmit,
+}: DashboardHeaderProps) {
   const router = useRouter();
 
   const handleLogout = () => {
@@ -26,7 +36,10 @@ export default function DashboardHeader() {
       <Image src={logotipo} alt="logotipo" width={40} />
 
       <div className="flex items-center gap-x-4">
-        <div className="relative flex items-center w-70">
+        <form
+          onSubmit={onSearchSubmit}
+          className="relative flex items-center w-70"
+        >
           {/* 2. Position the icon absolutely within the container */}
           <Icon
             icon="ic:baseline-search"
@@ -39,8 +52,10 @@ export default function DashboardHeader() {
             className="w-full pl-10 py-4 border rounded-[4px]" // `pl-10` makes space
             type="text"
             placeholder="Procure sua tarefa..."
+            value={searchTerm}
+            onChange={(e) => onSearchChange(e.target.value)}
           />
-        </div>
+        </form>
 
         <Avatar>
           <AvatarImage src="https://github.com/shadcn.png" />

@@ -38,6 +38,44 @@ export default function Dashboard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingTask, setEditingTask] = useState<Task | null>(null);
 
+  const [searchTerm, setSearchTerm] = useState("");
+  const [highlightedTaskId, setHighlightedTaskId] = useState<string | null>(
+    null
+  );
+
+  const handleSeacrhChange = (term: string) => {
+    setSearchTerm(term);
+
+    if (term.trim() === "") {
+      setHighlightedTaskId(null);
+      return;
+    }
+  };
+
+  const handleSearchSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+
+    if (searchTerm.trim() === "") {
+      setHighlightedTaskId(null);
+      return;
+    }
+
+    const foundTask = tasks.find((task) =>
+      task.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    if (foundTask) {
+      setHighlightedTaskId(foundTask.id);
+
+      document
+        .getElementById(foundTask.id)
+        ?.scrollIntoView({ behavior: "smooth", block: "center" });
+    } else {
+      setHighlightedTaskId(null);
+      alert("Nenhuma tarefa encontrada com esse título.");
+    }
+  };
+
   const fetchTasks = async () => {
     try {
       const userTasks = await getTasks();
@@ -136,7 +174,11 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-gray-100 w-full pb-24">
-      <DashboardHeader />
+      <DashboardHeader
+        searchTerm={searchTerm}
+        onSearchChange={handleSeacrhChange}
+        onSearchSubmit={handleSearchSubmit}
+      />
       <div className="flex flex-col items-center justify-start">
         <div className="h-28 bg-white flex flex-col items-center justify-start pt-5 gap-y-4 w-full border-b">
           <h1 className="flex items-center justify-center gap-x-1 text-2xl font-semibold">
@@ -184,6 +226,7 @@ export default function Dashboard() {
                         task={task}
                         onEdit={handleEditClick}
                         onDelete={handleDeleteTask}
+                        isHighlighted={task.id === highlightedTaskId}
                       />
                     ))}
               </div>
@@ -203,6 +246,7 @@ export default function Dashboard() {
                         task={task}
                         onEdit={handleEditClick}
                         onDelete={handleDeleteTask}
+                        isHighlighted={task.id === highlightedTaskId}
                       />
                     ))}
               </div>
@@ -220,6 +264,7 @@ export default function Dashboard() {
                         task={task}
                         onEdit={handleEditClick}
                         onDelete={handleDeleteTask}
+                        isHighlighted={task.id === highlightedTaskId}
                       />
                     ))}
               </div>

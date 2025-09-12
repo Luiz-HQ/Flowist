@@ -12,12 +12,28 @@ interface TaskCardProps {
   task: Task;
   onDelete: (id: string) => void;
   onEdit: (task: Task) => void;
+  isHighlighted: boolean;
 }
 
-export default function TaskCard({ task, onDelete, onEdit }: TaskCardProps) {
+export default function TaskCard({
+  task,
+  onDelete,
+  onEdit,
+  isHighlighted,
+}: TaskCardProps) {
+  const isDone = task.status === "done";
+  const doneStyle = isDone ? "line-through text-gray-500" : "";
+
+  const highlightStyle = isHighlighted ? "animate-highlight" : "";
+
   return (
     <>
-      <Card className="w-full max-w-2xl p-2 rounded-[4px]">
+      <Card
+        id={task.id}
+        className={`w-full max-w-2xl p-2 rounded-[4px] ${
+          isDone ? doneStyle : ""
+        } ${highlightStyle}`}
+      >
         <CardHeader>
           <CardTitle className="text-2xl font-bold">{task.title}</CardTitle>
           <CardDescription>{task.description}</CardDescription>
