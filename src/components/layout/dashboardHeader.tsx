@@ -35,22 +35,20 @@ export default function DashboardHeader({
     <header className="bg-white border-b p-5 flex justify-between items-center">
       <Image src={logotipo} alt="logotipo" width={40} />
 
-      <div className="flex items-center gap-x-4">
+      <div className="w-1/2 flex items-center justify-end gap-x-4">
         <form
           onSubmit={onSearchSubmit}
           className="relative flex items-center w-70"
         >
-          {/* 2. Position the icon absolutely within the container */}
           <Icon
             icon="ic:baseline-search"
             width="20"
             height="20"
-            className="absolute left-3 text-gray-400" // Positioned on the left
+            className="hidden md:flex absolute left-3 text-gray-400"
           />
-          {/* 3. Add padding to the input to make space for the icon */}
+
           <Input
-            className="w-full pl-10 py-4 border rounded-[4px]" // `pl-10` makes space
-            type="text"
+            className="hidden md:flex w-full pl-10 py-4 border rounded-[4px]"
             placeholder="Procure sua tarefa..."
             value={searchTerm}
             onChange={(e) => onSearchChange(e.target.value)}

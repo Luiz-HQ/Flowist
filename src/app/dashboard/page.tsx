@@ -181,11 +181,11 @@ export default function Dashboard() {
       />
       <div className="flex flex-col items-center justify-start">
         <div className="h-28 bg-white flex flex-col items-center justify-start pt-5 gap-y-4 w-full border-b">
-          <h1 className="flex items-center justify-center gap-x-1 text-2xl font-semibold">
+          <h1 className="flex flex-col md:flex-row items-center justify-center gap-x-1 text-2xl font-semibold">
             Bem vindo
             <p className="font-normal">{userName ? userName : ""}</p>
           </h1>
-          <h2 className="flex justify-between w-1/2 text-gray-500">
+          <h2 className="hidden md:flex justify-between w-1/2 text-gray-500">
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 bg-red-500 rounded-full"></div>
               <p>
@@ -213,9 +213,15 @@ export default function Dashboard() {
         </div>
 
         <div className="w-full max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
-          <div className="flex justify-center gap-x-6">
-            <div className="w-1/3 max-w-sm bg-gray-50  rounded-[4px] shadow-md p-4">
-              <h3 className="font-bold text-lg text-center mb-4">A fazer</h3>
+          <div className="w-full flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-3 md:gap-8">
+            <div className="w-full flex-shrink-0 snap-center p-2 max-w-sm bg-gray-50  rounded-[4px] shadow-md md:p-4">
+              <h3 className="font-bold text-lg text-center mb-4 flex justify-center items-center gap-2">
+                A fazer
+                <p className="text-red-500 md:hidden">
+                  {tasks &&
+                    tasks.filter((task) => task.status === "todo").length}{" "}
+                </p>
+              </h3>
               <div className="space-y-4">
                 {tasks &&
                   tasks
@@ -232,9 +238,14 @@ export default function Dashboard() {
               </div>
             </div>
 
-            <div className="w-1/3 max-w-sm bg-gray-50  rounded-[4px] shadow-md p-4">
-              <h3 className="font-bold text-lg text-center mb-4">
+            <div className="w-full flex-shrink-0 snap-center p-2 max-w-sm bg-gray-50  rounded-[4px] shadow-md md:p-4">
+              <h3 className="font-bold text-lg text-center mb-4 flex justify-center items-center gap-2">
                 Em andamento
+                <p className="text-yellow-500 md:hidden">
+                  {tasks &&
+                    tasks.filter((task) => task.status === "inProgress")
+                      .length}{" "}
+                </p>
               </h3>
               <div className="space-y-4">
                 {tasks &&
@@ -252,8 +263,14 @@ export default function Dashboard() {
               </div>
             </div>
 
-            <div className="w-1/3 max-w-sm bg-gray-50  rounded-[4px] shadow-md p-4">
-              <h3 className="font-bold text-lg text-center mb-4">Concluído</h3>
+            <div className="w-full flex-shrink-0 snap-center p-2 max-w-sm bg-gray-50  rounded-[4px] shadow-md md:p-4">
+              <h3 className="font-bold text-lg text-center mb-4 flex justify-center items-center gap-2">
+                Concluído
+                <p className="text-green-500 md:hidden">
+                  {tasks &&
+                    tasks.filter((task) => task.status === "done").length}{" "}
+                </p>
+              </h3>
               <div className="space-y-4">
                 {tasks &&
                   tasks
@@ -285,7 +302,7 @@ export default function Dashboard() {
                 Criar Tarefa
               </Button>
             </DialogTrigger>
-            <DialogContent className="rounded-[4px] sm:max-w-[425px]">
+            <DialogContent className="rounded-[4px] sm:max-w-[500px]">
               <DialogHeader>
                 <DialogTitle>
                   {editingTask ? "Editar Tarefa" : "Criar Tarefa"}
@@ -327,10 +344,10 @@ export default function Dashboard() {
                   <Label htmlFor="status" className="text-right">
                     Status:
                   </Label>
-                  <div className="flex gap-4 justify-end items-end w-full">
+                  <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:justify-center md:items-center w-full md:p-2">
                     <Label
                       htmlFor="status-todo"
-                      className="flex items-center gap-1 cursor-pointer"
+                      className="w-2/3 justify-start md:justify-center flex items-center gap-1 cursor-pointer"
                     >
                       <Input
                         id="status-todo"
@@ -350,7 +367,7 @@ export default function Dashboard() {
 
                     <Label
                       htmlFor="status-inProgress"
-                      className="flex items-center gap-1 cursor-pointer"
+                      className="flex w-2/3 justify-start items-center gap-1 cursor-pointer"
                     >
                       <Input
                         id="status-inProgress"
@@ -370,7 +387,7 @@ export default function Dashboard() {
 
                     <Label
                       htmlFor="status-concluido"
-                      className="flex items-center gap-1 cursor-pointer"
+                      className="flex w-2/3 justify-start items-center gap-1 cursor-pointer"
                     >
                       <Input
                         id="status-concluido"

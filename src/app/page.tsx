@@ -17,8 +17,8 @@ export default function Home() {
       setTimeout(() => {
         setIndex((prevIndex) => (prevIndex + 1) % words.length);
         setVisible(true);
-      }, 300); // time to transition
-    }, 5000); // Change word every 2 seconds
+      }, 200); // time to transition
+    }, 2000); // Change word every 2 seconds
 
     return () => clearInterval(interval); // Cleanup on unmount
   }, []);
@@ -45,13 +45,13 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="flex justify-between w-full p-10">
+          <div className="flex flex-col md:flex-row justify-center items-center w-full p-10 gap-8">
             <Image
               src={todoImg}
               alt="todo image"
-              className="w-1/3 m-auto border-2 rounded-[4px] border-gray-500"
+              className="w-full md:w-1/3 border-2 rounded-[4px] border-gray-500"
             />
-            <p className="bg-gray-50 rounded-[4px] p-5 text-xl w-1/2">
+            <p className="bg-gray-50 rounded-[4px] p-5 text-xl w-full md:w-1/2">
               Organize suas tarefas diárias de forma simples e eficiente. Com o
               TodoApp, você pode criar, editar, concluir e excluir suas tarefas
               a qualquer momento. Tenha controle do seu dia, aumente sua
