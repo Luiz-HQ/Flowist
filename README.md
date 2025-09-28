@@ -1,8 +1,9 @@
 # Flowist ✨
 
 <p align="center">
-  <img width="1919" height="943" alt="Captura de tela 2025-09-27 225448" src="https://github.com/user-attachments/assets/233c6513-ac63-4163-9b82-9886d96cccb4" />
+  <img width="1919" height="943" alt="Captura de tela 2025-09-28 025805" src="https://github.com/user-attachments/assets/cd3b2bc8-b3a3-428c-85f6-b9f534249324" />
 </p>
+
 
 
 <p align="center">
