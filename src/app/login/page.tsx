@@ -16,41 +16,42 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { toast } from "react-toastify";
 
 export default function Login() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPasword] = useState("");
-  const [error, setError] = useState("");
   const [tab, setTab] = useState("login");
   const router = useRouter();
 
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
-    setError("");
 
     try {
       const res = await login(email, password);
       console.log(res);
       router.push("/dashboard");
     } catch (error: any) {
-      setError(error.message || "Erro ao fazer login");
+      toast.error(
+        error.message || "Erro ao fazer login. Verifique suas credenciais."
+      );
     }
   };
 
   const handleRegister = async (e: FormEvent) => {
     e.preventDefault();
-    setError("");
 
     try {
       const res = await register(name, email, password);
       console.log(res);
+      toast.success("Conta criada com sucesso! Faça o login para continuar.");
       setTab("login");
       setEmail("");
       setPasword("");
       setName("");
     } catch (error: any) {
-      setError(error.message || "Erro ao registrar");
+      toast.error(error.message || "Erro ao registrar. Tente novamente.");
     }
   };
 
@@ -112,7 +113,6 @@ export default function Login() {
                 >
                   Entrar
                 </Button>
-                {error && <p className="text-red-500">{error}</p>}
               </CardFooter>
             </Card>
           </form>
@@ -167,7 +167,6 @@ export default function Login() {
                 >
                   Criar conta
                 </Button>
-                {error && <p className="text-red-500">{error}</p>}
               </CardFooter>
             </Card>
           </form>
