@@ -17,8 +17,8 @@ export default function Home() {
       setTimeout(() => {
         setIndex((prevIndex) => (prevIndex + 1) % words.length);
         setVisible(true);
-      }, 200); // time to transition
-    }, 2000); // Change word every 2 seconds
+      }, 300); // time to transition
+    }, 3000); // Change word every 2 seconds
 
     return () => clearInterval(interval); // Cleanup on unmount
   }, []);
@@ -31,7 +31,7 @@ export default function Home() {
         <main className="flex-1 flex-col items-center justify-center">
           <div className="flex justify-center w-full p-5 ">
             <h2 className="flex flex-col items-center w-full text-5xl font-semibold">
-              Bem vindo ao seu TodoApp
+              Bem vindo ao Flowist
               <p className="text-3xl pt-5">
                 <span
                   className={`text-blue-600 transition-opacity duration-500 mr-2 ${

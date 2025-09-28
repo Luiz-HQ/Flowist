@@ -1,36 +1,103 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Flowist ✨
 
-## Getting Started
+<p align="center">
+  <img src="![alt text](image.png)" alt="Demonstração do Flowist" width="700"/>
+</p>
 
-First, run the development server:
+<p align="center">
+  Um moderno organizador de tarefas no estilo Kanban, construído com as mais recentes tecnologias web. Crie, gerencie e mova suas tarefas com uma interface fluida e intuitiva de arrastar e soltar.
+</p>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+<p align="center">
+  <a href="LINK_PARA_O_DEPLOY_NA_VERCEL"><strong>Acesse a demonstração ao vivo »</strong></a>
+</p>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📋 Sobre o Projeto
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**Flowist** nasceu da necessidade de uma ferramenta de organização que fosse ao mesmo tempo poderosa e simples. Em vez de interfaces complexas, o foco aqui é na clareza e na agilidade. O layout Kanban permite uma visualização clara do progresso de cada tarefa, desde a sua criação até a conclusão, seguindo o fluxo: **A Fazer → Em Andamento → Concluído**.
 
-## Learn More
+Este projeto foi desenvolvido como parte do meu portfólio para demonstrar habilidades em desenvolvimento full-stack com um design responsivo e focado na experiência do usuário.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🚀 Tecnologias Utilizadas
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Este projeto foi construído utilizando as seguintes tecnologias:
 
-## Deploy on Vercel
+- **Frontend:**
+  - [**Next.js**](https://nextjs.org/) (React Framework)
+  - [**Tailwind CSS**](https://tailwindcss.com/) (Estilização)
+  - [**TypeScript**](https://www.typescriptlang.org/) (Tipagem)
+- **Backend:**
+  - **API Routes do Next.js** (Serverless Functions)
+- **Interatividade:**
+  - [**dnd-kit**](https://dndkit.com/) (Para a funcionalidade de Arrastar e Soltar)
+- **UI/Componentes:**
+  - [**shadcn/ui**](https://ui.shadcn.com/) (Componentes de UI, como Dialogs e Inputs)
+- **Banco de Dados:**
+  - [**MongoDB**](https://www.mongodb.com/) / [**PostgreSQL com Prisma**](https://www.prisma.io/) (Mencione o que você usou)
+- **Deploy:**
+  - [**Vercel**](https://vercel.com/)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## ✨ Funcionalidades Principais
+
+- ✅ **Gerenciamento Completo de Tarefas (CRUD):** Crie, leia, atualize e delete tarefas facilmente.
+- ↔️ **Quadro Kanban Interativo:** Organize suas tarefas em colunas visuais.
+- 👆 **Arrastar e Soltar (Drag and Drop):** Mova tarefas entre os status com um simples gesto.
+- 📱 **Design Totalmente Responsivo:** Experiência de uso perfeita em desktops, tablets e celulares.
+- 🔍 **Busca de Tarefas:** Encontre rapidamente a tarefa que você procura.
+- 🔐 **Autenticação de Usuários:** Cada usuário tem seu próprio quadro de tarefas.
+
+---
+
+## ⚙️ Como Executar o Projeto Localmente
+
+Para rodar este projeto na sua máquina, siga os passos abaixo:
+
+1.  **Clone o repositório:**
+
+    ```bash
+    git clone https://github.com/seu-usuario/nome-do-repositorio.git
+    ```
+
+2.  **Navegue até o diretório:**
+
+    ```bash
+    cd nome-do-repositorio
+    ```
+
+3.  **Instale as dependências:**
+
+    ```bash
+    npm install
+    ```
+
+4.  **Configure as variáveis de ambiente:**
+
+    - Crie um arquivo `.env.local` na raiz do projeto.
+    - Adicione as variáveis necessárias (ex: string de conexão do banco de dados ).
+
+    ```env
+    DATABASE_URL="sua_string_de_conexao_aqui"
+    ```
+
+5.  **Inicie o servidor de desenvolvimento:**
+
+    ```bash
+    npm run dev
+    ```
+
+6.  Abra [http://localhost:3000](http://localhost:3000) no seu navegador para ver o resultado.
+
+---
+
+## 👨‍💻 Autor
+
+**Luiz Henrique**
+
+- LinkedIn: [Seu LinkedIn](https://www.linkedin.com/in/luizhenriquecomunicador/)
+- GitHub: [@seu-usuario](https://github.com/Luiz-HQ)
