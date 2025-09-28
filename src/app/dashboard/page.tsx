@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, FormEvent } from "react";
 import DashboardHeader from "@/components/layout/dashboardHeader";
 import TaskCard from "@/components/layout/taskCard";
 import { Button } from "@/components/ui/button";
@@ -23,6 +23,7 @@ import {
   Task,
   updateTask,
 } from "@/services/task";
+import { ArrowRight } from "lucide-react";
 
 export default function Dashboard() {
   const [userName, setUserName] = useState("");
@@ -101,7 +102,9 @@ export default function Dashboard() {
     fetchInitialData();
   }, []);
 
-  const handleSaveTask = async () => {
+  const handleSaveTask = async (e: FormEvent) => {
+    e.preventDefault();
+
     if (!taskTitle.trim()) {
       alert("O título da tarefa é obrigatório.");
       return;
@@ -213,7 +216,7 @@ export default function Dashboard() {
         </div>
 
         <div className="w-full max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
-          <div className="w-full flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-3 md:gap-8">
+          <div className="w-full min-h-36 flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-3 md:gap-8">
             <div className="w-full flex-shrink-0 snap-center p-2 max-w-sm bg-gray-50  rounded-[4px] shadow-md md:p-4">
               <h3 className="font-bold text-lg text-center mb-4 flex justify-center items-center gap-2">
                 A fazer
@@ -287,6 +290,9 @@ export default function Dashboard() {
               </div>
             </div>
           </div>
+          <span className="text-slate-500 text-sm italic flex md:hidden items-center justify-center py-2">
+            arraste para o lado <ArrowRight className="ml-1.5 h-4 w-4" />
+          </span>
         </div>
       </div>
 
@@ -303,120 +309,118 @@ export default function Dashboard() {
               </Button>
             </DialogTrigger>
             <DialogContent className="rounded-[4px] sm:max-w-[500px]">
-              <DialogHeader>
-                <DialogTitle>
-                  {editingTask ? "Editar Tarefa" : "Criar Tarefa"}
-                </DialogTitle>
-                <DialogDescription>
-                  Preencha os detalhes da sua nova tarefa. Clique em "Salvar"
-                  para concluir.
-                </DialogDescription>
-              </DialogHeader>
+              <form onSubmit={handleSaveTask}>
+                <DialogHeader>
+                  <DialogTitle>
+                    {editingTask ? "Editar Tarefa" : "Criar Tarefa"}
+                  </DialogTitle>
+                  <DialogDescription>
+                    Preencha os detalhes da sua nova tarefa. Clique em "Salvar"
+                    para concluir.
+                  </DialogDescription>
+                </DialogHeader>
 
-              <div className="grid gap-4 py-4">
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="title" className="text-right">
-                    Título
-                  </Label>
-                  <Input
-                    id="title"
-                    value={taskTitle}
-                    onChange={(e) => setTaskTitle(e.target.value)}
-                    className="rounded-[4px] col-span-3"
-                    placeholder="Ex: Estudar documentação do Next.js"
-                  />
-                </div>
-
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="description" className="text-right">
-                    Descrição
-                  </Label>
-                  <Input
-                    id="description"
-                    value={taskDescription}
-                    onChange={(e) => setTaskDescription(e.target.value)}
-                    className="rounded-[4px] col-span-3"
-                    placeholder="(Opcional)"
-                  />
-                </div>
-
-                <div className="flex">
-                  <Label htmlFor="status" className="text-right">
-                    Status:
-                  </Label>
-                  <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:justify-center md:items-center w-full md:p-2">
-                    <Label
-                      htmlFor="status-todo"
-                      className="w-2/3 justify-start md:justify-center flex items-center gap-1 cursor-pointer"
-                    >
-                      <Input
-                        id="status-todo"
-                        type="radio"
-                        name="task-status-group"
-                        value="todo"
-                        checked={taskStatus === "todo"}
-                        onChange={(e) =>
-                          setTaskStatus(
-                            e.target.value as "todo" | "inProgress" | "done"
-                          )
-                        }
-                        className="size-[12px] cursor-pointer"
-                      />
-                      <span className="text-sm">A fazer</span>
+                <div className="grid gap-4 py-4">
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="title" className="text-right">
+                      Título
                     </Label>
+                    <Input
+                      id="title"
+                      value={taskTitle}
+                      onChange={(e) => setTaskTitle(e.target.value)}
+                      className="rounded-[4px] col-span-3"
+                      placeholder="Ex: Estudar documentação do Next.js"
+                    />
+                  </div>
 
-                    <Label
-                      htmlFor="status-inProgress"
-                      className="flex w-2/3 justify-start items-center gap-1 cursor-pointer"
-                    >
-                      <Input
-                        id="status-inProgress"
-                        type="radio"
-                        name="task-status-group"
-                        value="inProgress"
-                        checked={taskStatus === "inProgress"}
-                        onChange={(e) =>
-                          setTaskStatus(
-                            e.target.value as "todo" | "inProgress" | "done"
-                          )
-                        }
-                        className="size-[12px] cursor-pointer"
-                      />
-                      <span className="text-sm">Em andamento</span>
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="description" className="text-right">
+                      Descrição
                     </Label>
+                    <Input
+                      id="description"
+                      value={taskDescription}
+                      onChange={(e) => setTaskDescription(e.target.value)}
+                      className="rounded-[4px] col-span-3"
+                      placeholder="(Opcional)"
+                    />
+                  </div>
 
-                    <Label
-                      htmlFor="status-concluido"
-                      className="flex w-2/3 justify-start items-center gap-1 cursor-pointer"
-                    >
-                      <Input
-                        id="status-concluido"
-                        type="radio"
-                        name="task-status-group"
-                        value="done"
-                        checked={taskStatus === "done"}
-                        onChange={(e) =>
-                          setTaskStatus(
-                            e.target.value as "todo" | "inProgress" | "done"
-                          )
-                        }
-                        className="size-[12px] cursor-pointer"
-                      />
-                      <span className="text-sm">Concluído</span>
+                  <div className="flex">
+                    <Label htmlFor="status" className="text-right">
+                      Status:
                     </Label>
+                    <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:justify-center md:items-center w-full md:p-2">
+                      <Label
+                        htmlFor="status-todo"
+                        className="w-2/3 justify-start md:justify-center flex items-center gap-1 cursor-pointer"
+                      >
+                        <Input
+                          id="status-todo"
+                          type="radio"
+                          name="task-status-group"
+                          value="todo"
+                          checked={taskStatus === "todo"}
+                          onChange={(e) =>
+                            setTaskStatus(
+                              e.target.value as "todo" | "inProgress" | "done"
+                            )
+                          }
+                          className="size-[12px] cursor-pointer"
+                        />
+                        <span className="text-sm">A fazer</span>
+                      </Label>
+
+                      <Label
+                        htmlFor="status-inProgress"
+                        className="flex w-2/3 justify-start items-center gap-1 cursor-pointer"
+                      >
+                        <Input
+                          id="status-inProgress"
+                          type="radio"
+                          name="task-status-group"
+                          value="inProgress"
+                          checked={taskStatus === "inProgress"}
+                          onChange={(e) =>
+                            setTaskStatus(
+                              e.target.value as "todo" | "inProgress" | "done"
+                            )
+                          }
+                          className="size-[12px] cursor-pointer"
+                        />
+                        <span className="text-sm">Em andamento</span>
+                      </Label>
+
+                      <Label
+                        htmlFor="status-concluido"
+                        className="flex w-2/3 justify-start items-center gap-1 cursor-pointer"
+                      >
+                        <Input
+                          id="status-concluido"
+                          type="radio"
+                          name="task-status-group"
+                          value="done"
+                          checked={taskStatus === "done"}
+                          onChange={(e) =>
+                            setTaskStatus(
+                              e.target.value as "todo" | "inProgress" | "done"
+                            )
+                          }
+                          className="size-[12px] cursor-pointer"
+                        />
+                        <span className="text-sm">Concluído</span>
+                      </Label>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <DialogFooter>
-                <Button
-                  className=" rounded-[4px]"
-                  type="submit"
-                  onClick={handleSaveTask}
-                >
-                  Salvar Tarefa
-                </Button>
-              </DialogFooter>
+                <DialogFooter>
+                  <Button type="submit" className=" rounded-[4px]">
+                    Salvar Tarefa
+                  </Button>
+                </DialogFooter>
+              </form>
             </DialogContent>
           </Dialog>
         </div>

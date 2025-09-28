@@ -29,20 +29,20 @@ export default function Home() {
         <Header />
 
         <main className="flex-1 flex-col items-center justify-center">
-          <div className="flex justify-center w-full p-5 ">
-            <h2 className="flex flex-col items-center w-full text-5xl font-semibold">
-              Bem vindo ao Flowist
-              <p className="text-3xl pt-5">
-                <span
-                  className={`text-blue-600 transition-opacity duration-500 mr-2 ${
-                    visible ? "opacity-100" : "opacity-0"
-                  }`}
-                >
-                  {words[index]}
-                </span>
-                tarefas, organize seu dia.
-              </p>
+          <div className="flex flex-col items-center   justify-center w-full p-5 ">
+            <h2 className="w-full text-5xl font-semibold text-center">
+              Bem vindo ao <span className="text-blue-600">Flowist</span>
             </h2>
+            <p className="text-3xl text-center pt-5">
+              <span
+                className={`text-blue-600 transition-opacity duration-500 mr-2 ${
+                  visible ? "opacity-100" : "opacity-0"
+                }`}
+              >
+                {words[index]}
+              </span>
+              tarefas, organize seu dia.
+            </p>
           </div>
 
           <div className="flex flex-col md:flex-row justify-center items-center w-full p-10 gap-8">
