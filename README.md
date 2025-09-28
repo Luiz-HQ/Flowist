@@ -1,8 +1,9 @@
 # Flowist ✨
 
 <p align="center">
-  <img src="![alt text](image.png)" alt="Demonstração do Flowist" width="700"/>
+  <img width="1919" height="943" alt="Captura de tela 2025-09-27 225448" src="https://github.com/user-attachments/assets/233c6513-ac63-4163-9b82-9886d96cccb4" />
 </p>
+
 
 <p align="center">
   Um moderno organizador de tarefas no estilo Kanban, construído com as mais recentes tecnologias web. Crie, gerencie e mova suas tarefas com uma interface fluida e intuitiva de arrastar e soltar.
