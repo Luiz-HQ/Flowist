@@ -1,8 +1,9 @@
 # Flowist ✨
 
 <p align="center">
-  <img src="![alt text](image.png)" alt="Demonstração do Flowist" width="700"/>
+  <img width="1919" height="943" alt="Captura de tela 2025-09-27 225448" src="https://github.com/user-attachments/assets/233c6513-ac63-4163-9b82-9886d96cccb4" />
 </p>
+
 
 <p align="center">
   Um moderno organizador de tarefas no estilo Kanban, construído com as mais recentes tecnologias web. Crie, gerencie e mova suas tarefas com uma interface fluida e intuitiva de arrastar e soltar.
@@ -61,7 +62,7 @@ Para rodar este projeto na sua máquina, siga os passos abaixo:
 1.  **Clone o repositório:**
 
     ```bash
-    git clone https://github.com/seu-usuario/nome-do-repositorio.git
+    git clone https://github.com/Luiz-HQ/Flowist.git
     ```
 
 2.  **Navegue até o diretório:**
