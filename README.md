@@ -62,7 +62,7 @@ Para rodar este projeto na sua máquina, siga os passos abaixo:
 1.  **Clone o repositório:**
 
     ```bash
-    git clone https://github.com/seu-usuario/nome-do-repositorio.git
+    git clone https://github.com/Luiz-HQ/Flowist.git
     ```
 
 2.  **Navegue até o diretório:**
