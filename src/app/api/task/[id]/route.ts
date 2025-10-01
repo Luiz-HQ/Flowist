@@ -31,15 +31,12 @@ export async function PUT(req: NextRequest, context: RouteContext) {
   }
 }
 
-export async function DELETE(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function DELETE(req: NextRequest, context: RouteContext) {
   try {
     const user = await getUserFromRequest(req);
     const userId = user.id;
 
-    const { id } = params;
+    const { id } = context.params;
 
     const deletedTask = await prisma.task.deleteMany({
       where: { id, userId },
