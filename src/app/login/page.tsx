@@ -30,8 +30,9 @@ export default function Login() {
 
     try {
       const res = await login(email, password);
-      console.log(res);
-      router.push("/dashboard");
+      if (res) {
+        router.push("/dashboard");
+      }
     } catch (error: any) {
       toast.error(
         error.message || "Erro ao fazer login. Verifique suas credenciais."
@@ -44,12 +45,13 @@ export default function Login() {
 
     try {
       const res = await register(name, email, password);
-      console.log(res);
-      toast.success("Conta criada com sucesso! Faça o login para continuar.");
-      setTab("login");
-      setEmail("");
-      setPasword("");
-      setName("");
+      if (res) {
+        toast.success("Conta criada com sucesso! Faça o login para continuar.");
+        setTab("login");
+        setEmail("");
+        setPasword("");
+        setName("");
+      }
     } catch (error: any) {
       toast.error(error.message || "Erro ao registrar. Tente novamente.");
     }

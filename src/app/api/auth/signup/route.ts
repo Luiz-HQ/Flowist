@@ -26,6 +26,19 @@ export async function POST(request: Request) {
       );
     }
 
+    const existingUser = await prisma.user.findUnique({
+      where: {
+        email: email,
+      },
+    });
+
+    if (existingUser) {
+      return NextResponse.json(
+        { message: "Este email já está cadastrado." },
+        { status: 409 }
+      );
+    }
+
     const hashPassword = await bcrypt.hash(password, 10);
 
     const user = await prisma.user.create({

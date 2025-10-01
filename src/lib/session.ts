@@ -7,7 +7,7 @@ export interface UserPayload {
   name?: string;
 }
 
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.NEXT_PUBLIC_JWT_SECRET;
 
 /**
  * Esta é a nossa função helper. Ela será chamada no início de cada rota de API protegida.

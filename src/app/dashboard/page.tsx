@@ -24,6 +24,15 @@ import {
   updateTask,
 } from "@/services/task";
 import { ArrowRight } from "lucide-react";
+import {
+  DndContext,
+  closestCenter,
+  DragEndEvent,
+  DragStartEvent,
+  DragOverlay,
+} from "@dnd-kit/core";
+import { toast } from "react-toastify";
+import { Column } from "@/components/layout/Column";
 
 export default function Dashboard() {
   const [userName, setUserName] = useState("");
@@ -43,6 +52,8 @@ export default function Dashboard() {
   const [highlightedTaskId, setHighlightedTaskId] = useState<string | null>(
     null
   );
+
+  const [activeTask, setActiveTask] = useState<Task | null>(null);
 
   const handleSeacrhChange = (term: string) => {
     setSearchTerm(term);
@@ -80,10 +91,47 @@ export default function Dashboard() {
   const fetchTasks = async () => {
     try {
       const userTasks = await getTasks();
-      console.log("Dados recebidos da API:", userTasks);
       setTasks(userTasks);
     } catch (err) {
       console.error("Erro ao buscar tarefas:", err);
+    }
+  };
+
+  const handleDragStart = (event: DragStartEvent) => {
+    const { active } = event;
+    const task = tasks.find((t) => t.id === active.id);
+    if (task) {
+      setActiveTask(task);
+    }
+  };
+
+  const handleDragEnd = async (event: DragEndEvent) => {
+    const { active, over } = event;
+
+    if (!over) return;
+
+    const taskId = active.id as string;
+    const newStatus = over.id as "todo" | "inProgress" | "done";
+
+    const task = tasks.find((t) => t.id === taskId);
+
+    if (task && task.status !== newStatus) {
+      setTasks((currentTasks) =>
+        currentTasks.map((t) =>
+          t.id === taskId ? { ...t, status: newStatus } : t
+        )
+      );
+
+      try {
+        await updateTask(taskId, { status: newStatus });
+      } catch (error) {
+        toast.error("Falha ao mover a tarefa. Revertendo.");
+        setTasks((currentTasks) =>
+          currentTasks.map((t) =>
+            t.id === taskId ? { ...t, status: task.status } : t
+          )
+        );
+      }
     }
   };
 
@@ -214,86 +262,55 @@ export default function Dashboard() {
             </div>
           </h2>
         </div>
+        <DndContext
+          collisionDetection={closestCenter}
+          onDragEnd={handleDragEnd}
+          onDragStart={handleDragStart}
+        >
+          <div className="w-full max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+            <div className="w-full min-h-36 flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-3 md:gap-8">
+              <Column
+                id="todo"
+                title="A fazer"
+                tasks={tasks.filter((t) => t.status === "todo")}
+                onEdit={handleEditClick}
+                onDelete={handleDeleteTask}
+                highlightedTaskId={highlightedTaskId}
+              />
 
-        <div className="w-full max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
-          <div className="w-full min-h-36 flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-3 md:gap-8">
-            <div className="w-full flex-shrink-0 snap-center p-2 max-w-sm bg-gray-50  rounded-[4px] shadow-md md:p-4">
-              <h3 className="font-bold text-lg text-center mb-4 flex justify-center items-center gap-2">
-                A fazer
-                <p className="text-red-500 md:hidden">
-                  {tasks &&
-                    tasks.filter((task) => task.status === "todo").length}{" "}
-                </p>
-              </h3>
-              <div className="space-y-4">
-                {tasks &&
-                  tasks
-                    .filter((task) => task.status === "todo")
-                    .map((task) => (
-                      <TaskCard
-                        key={task.id}
-                        task={task}
-                        onEdit={handleEditClick}
-                        onDelete={handleDeleteTask}
-                        isHighlighted={task.id === highlightedTaskId}
-                      />
-                    ))}
-              </div>
-            </div>
+              <Column
+                id="inProgress"
+                title="Em andamento"
+                tasks={tasks.filter((t) => t.status === "inProgress")}
+                onEdit={handleEditClick}
+                onDelete={handleDeleteTask}
+                highlightedTaskId={highlightedTaskId}
+              />
 
-            <div className="w-full flex-shrink-0 snap-center p-2 max-w-sm bg-gray-50  rounded-[4px] shadow-md md:p-4">
-              <h3 className="font-bold text-lg text-center mb-4 flex justify-center items-center gap-2">
-                Em andamento
-                <p className="text-yellow-500 md:hidden">
-                  {tasks &&
-                    tasks.filter((task) => task.status === "inProgress")
-                      .length}{" "}
-                </p>
-              </h3>
-              <div className="space-y-4">
-                {tasks &&
-                  tasks
-                    .filter((task) => task.status === "inProgress")
-                    .map((task) => (
-                      <TaskCard
-                        key={task.id}
-                        task={task}
-                        onEdit={handleEditClick}
-                        onDelete={handleDeleteTask}
-                        isHighlighted={task.id === highlightedTaskId}
-                      />
-                    ))}
-              </div>
+              <Column
+                id="done"
+                title="Concluído"
+                tasks={tasks.filter((t) => t.status === "done")}
+                onEdit={handleEditClick}
+                onDelete={handleDeleteTask}
+                highlightedTaskId={highlightedTaskId}
+              />
             </div>
-
-            <div className="w-full flex-shrink-0 snap-center p-2 max-w-sm bg-gray-50  rounded-[4px] shadow-md md:p-4">
-              <h3 className="font-bold text-lg text-center mb-4 flex justify-center items-center gap-2">
-                Concluído
-                <p className="text-green-500 md:hidden">
-                  {tasks &&
-                    tasks.filter((task) => task.status === "done").length}{" "}
-                </p>
-              </h3>
-              <div className="space-y-4">
-                {tasks &&
-                  tasks
-                    .filter((task) => task.status === "done")
-                    .map((task) => (
-                      <TaskCard
-                        key={task.id}
-                        task={task}
-                        onEdit={handleEditClick}
-                        onDelete={handleDeleteTask}
-                        isHighlighted={task.id === highlightedTaskId}
-                      />
-                    ))}
-              </div>
-            </div>
+            <span className="text-slate-500 text-sm italic flex md:hidden items-center justify-center py-2">
+              arraste para o lado <ArrowRight className="ml-1.5 h-4 w-4" />
+            </span>
           </div>
-          <span className="text-slate-500 text-sm italic flex md:hidden items-center justify-center py-2">
-            arraste para o lado <ArrowRight className="ml-1.5 h-4 w-4" />
-          </span>
-        </div>
+          <DragOverlay>
+            {activeTask ? (
+              <TaskCard
+                task={activeTask}
+                onEdit={() => {}}
+                onDelete={() => {}}
+                isHighlighted={false}
+              />
+            ) : null}
+          </DragOverlay>
+        </DndContext>
       </div>
 
       {/* --- Barra Fixa com o Botão que Abre o Modal --- */}
