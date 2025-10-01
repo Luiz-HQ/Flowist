@@ -14,10 +14,7 @@
   <a href="LINK_PARA_O_DEPLOY_NA_VERCEL"><strong>Acesse a demonstração ao vivo »</strong></a>
 </p>
 
-<p>
   ![Flowist-dashboard](https://github.com/user-attachments/assets/1cb390c7-d26b-4542-9b19-8cd85ae4d951)
-</p>
-
 
 ## 📋 Sobre o Projeto
 
