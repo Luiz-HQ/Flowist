@@ -1,12 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "../../../../lib/prisma";
 import { getUserFromRequest } from "@/lib/session";
-
-interface RouteContext {
-  params: {
-    id: string;
-  };
-}
+import { RouteContext } from "@/types";
 
 export async function PUT(req: NextRequest, context: RouteContext) {
   try {
