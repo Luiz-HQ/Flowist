@@ -2,16 +2,19 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "../../../../lib/prisma";
 import { getUserFromRequest } from "@/lib/session";
 
-export async function PUT(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
+interface RouteContext {
+  params: {
+    id: string;
+  };
+}
+
+export async function PUT(req: NextRequest, context: RouteContext) {
   try {
     const user = await getUserFromRequest(req);
     const userId = user.id;
 
     const { title, description, status } = await req.json();
-    const { id } = params;
+    const { id } = context.params;
 
     const updatedTask = await prisma.task.update({
       where: { id, userId },
