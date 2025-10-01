@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
+import { Request, NextResponse } from "next/server";
 import prisma from "../../../lib/prisma";
 import { getUserFromRequest } from "@/lib/session";
 
-export async function GET(req: NextRequest) {
+export async function GET(req: Request) {
   try {
     const user = await getUserFromRequest(req);
 
@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
   }
 }
 
-export async function POST(req: NextRequest) {
+export async function POST(req: Request) {
   try {
     const user = await getUserFromRequest(req);
     const userId = user.id;

@@ -3,3 +3,9 @@ export interface RouteContext {
     id: string;
   };
 }
+
+export interface UserPayload {
+  id: string;
+  email: string;
+  name?: string;
+}

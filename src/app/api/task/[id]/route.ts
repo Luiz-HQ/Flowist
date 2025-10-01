@@ -1,9 +1,9 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import prisma from "../../../../lib/prisma";
 import { getUserFromRequest } from "@/lib/session";
 import { RouteContext } from "@/types";
 
-export async function PUT(req: NextRequest, context: RouteContext) {
+export async function PUT(req: Request, context: RouteContext) {
   try {
     const user = await getUserFromRequest(req);
     const userId = user.id;
@@ -26,7 +26,7 @@ export async function PUT(req: NextRequest, context: RouteContext) {
   }
 }
 
-export async function DELETE(req: NextRequest, context: RouteContext) {
+export async function DELETE(req: Request, context: RouteContext) {
   try {
     const user = await getUserFromRequest(req);
     const userId = user.id;

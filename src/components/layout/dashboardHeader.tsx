@@ -7,7 +7,7 @@ import { Icon } from "@iconify/react";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
-import { NextRequest } from "next/server";
+import { Request } from "next/server";
 import { logout } from "@/services/auth";
 
 interface DashboardHeaderProps {

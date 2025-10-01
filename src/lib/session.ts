@@ -1,11 +1,6 @@
-import { NextRequest } from "next/server";
 import { jwtVerify } from "jose";
-
-export interface UserPayload {
-  id: string;
-  email: string;
-  name?: string;
-}
+import { parse } from "cookie";
+import { UserPayload } from "@/types";
 
 const JWT_SECRET = process.env.NEXT_PUBLIC_JWT_SECRET;
 
@@ -21,7 +16,7 @@ const JWT_SECRET = process.env.NEXT_PUBLIC_JWT_SECRET;
  */
 
 export async function getUserFromRequest(
-  request: NextRequest
+  request: Request // 2. MUDE O TIPO PARA 'Request' PADRÃO
 ): Promise<UserPayload> {
   if (!JWT_SECRET) {
     throw new Error(
@@ -29,7 +24,14 @@ export async function getUserFromRequest(
     );
   }
 
-  const token = request.cookies.get("authToken")?.value;
+  // 3. LÓGICA PARA LER O COOKIE MANUALMENTE
+  const cookieHeader = request.headers.get("cookie");
+  if (!cookieHeader) {
+    throw new Error("Não autorizado: Cookie de autenticação não fornecido.");
+  }
+
+  const cookies = parse(cookieHeader);
+  const token = cookies.authToken;
 
   if (!token) {
     throw new Error("Não autorizado: Token não fornecido.");
