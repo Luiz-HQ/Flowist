@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  <a href="LINK_PARA_O_DEPLOY_NA_VERCEL"><strong>Acesse a demonstração ao vivo » https://flowist-seven.vercel.app/</strong></a>
+  <a href="LINK_PARA_O_DEPLOY_NA_VERCEL"><strong>Acesse a demonstração ao vivo »</strong> https://flowist-seven.vercel.app/</a>
 </p>
 
   ![Flowist-dashboard](https://github.com/user-attachments/assets/1cb390c7-d26b-4542-9b19-8cd85ae4d951)
