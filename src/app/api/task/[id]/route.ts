@@ -1,17 +1,17 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import prisma from "../../../../lib/prisma";
 import { getUserFromRequest } from "@/lib/session";
-import { RouteContext } from "@/types";
 
-// FORÇANDO A ATUALIZAÇÃO DO CACHE DA VERCEL - v1
-
-export async function PUT(req: Request, context: RouteContext) {
+export async function PUT(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
   try {
     const user = await getUserFromRequest(req);
     const userId = user.id;
 
     const { title, description, status } = await req.json();
-    const { id } = context.params;
+    const { id } = params;
 
     const updatedTask = await prisma.task.update({
       where: { id, userId },
@@ -28,12 +28,15 @@ export async function PUT(req: Request, context: RouteContext) {
   }
 }
 
-export async function DELETE(req: Request, context: RouteContext) {
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
   try {
     const user = await getUserFromRequest(req);
     const userId = user.id;
 
-    const { id } = context.params;
+    const { id } = params;
 
     const deletedTask = await prisma.task.deleteMany({
       where: { id, userId },
