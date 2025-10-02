@@ -39,7 +39,7 @@ Este projeto foi construído utilizando as seguintes tecnologias:
 - **UI/Componentes:**
   - [**shadcn/ui**](https://ui.shadcn.com/) (Componentes de UI, como Dialogs e Inputs)
 - **Banco de Dados:**
-  - [**MongoDB**](https://www.mongodb.com/) / [**PostgreSQL com Prisma**](https://www.prisma.io/) (Mencione o que você usou)
+  - [**MongoDB**](https://www.mongodb.com/)
 - **Deploy:**
   - [**Vercel**](https://vercel.com/)
 
