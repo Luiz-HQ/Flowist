@@ -69,7 +69,7 @@ Para rodar este projeto na sua máquina, siga os passos abaixo:
 2.  **Navegue até o diretório:**
 
     ```bash
-    cd nome-do-repositorio
+    cd .\Flowist\
     ```
 
 3.  **Instale as dependências:**
