@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  <a href="LINK_PARA_O_DEPLOY_NA_VERCEL"><strong>Acesse a demonstração ao vivo »</strong></a>
+  <a href="https://flowist-seven.vercel.app" target="blank"><strong>Acesse a demonstração ao vivo »</strong></a> <a href="https://flowist-seven.vercel.app" target="blank">https://flowist-seven.vercel.app</a>
 </p>
 
   ![Flowist-dashboard](https://github.com/user-attachments/assets/1cb390c7-d26b-4542-9b19-8cd85ae4d951)
@@ -39,7 +39,7 @@ Este projeto foi construído utilizando as seguintes tecnologias:
 - **UI/Componentes:**
   - [**shadcn/ui**](https://ui.shadcn.com/) (Componentes de UI, como Dialogs e Inputs)
 - **Banco de Dados:**
-  - [**MongoDB**](https://www.mongodb.com/) / [**PostgreSQL com Prisma**](https://www.prisma.io/) (Mencione o que você usou)
+  - [**MongoDB**](https://www.mongodb.com/)
 - **Deploy:**
   - [**Vercel**](https://vercel.com/)
 
@@ -69,7 +69,7 @@ Para rodar este projeto na sua máquina, siga os passos abaixo:
 2.  **Navegue até o diretório:**
 
     ```bash
-    cd nome-do-repositorio
+    cd .\Flowist\
     ```
 
 3.  **Instale as dependências:**
@@ -101,5 +101,6 @@ Para rodar este projeto na sua máquina, siga os passos abaixo:
 
 **Luiz Henrique**
 
-- LinkedIn: [Seu LinkedIn](https://www.linkedin.com/in/luizhenriquecomunicador/)
-- GitHub: [@seu-usuario](https://github.com/Luiz-HQ)
+- LinkedIn: [LinkedIn](https://www.linkedin.com/in/luizhenriquecomunicador/)
+- GitHub: [Github](https://github.com/Luiz-HQ)
+- Email: [luizhn1703@gmail.com](mailto:luizhn1703@gmail.com)
