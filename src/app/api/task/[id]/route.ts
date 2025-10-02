@@ -3,6 +3,8 @@ import prisma from "../../../../lib/prisma";
 import { getUserFromRequest } from "@/lib/session";
 import { RouteContext } from "@/types";
 
+// FORÇANDO A ATUALIZAÇÃO DO CACHE DA VERCEL - v1
+
 export async function PUT(req: Request, context: RouteContext) {
   try {
     const user = await getUserFromRequest(req);
