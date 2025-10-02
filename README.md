@@ -101,5 +101,6 @@ Para rodar este projeto na sua máquina, siga os passos abaixo:
 
 **Luiz Henrique**
 
-- LinkedIn: [Seu LinkedIn](https://www.linkedin.com/in/luizhenriquecomunicador/)
-- GitHub: [@seu-usuario](https://github.com/Luiz-HQ)
+- LinkedIn: [LinkedIn](https://www.linkedin.com/in/luizhenriquecomunicador/)
+- GitHub: [Github](https://github.com/Luiz-HQ)
+- Email: [luizhn1703@gmail.com](mailto:luizhn1703@gmail.com)
