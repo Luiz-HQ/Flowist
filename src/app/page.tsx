@@ -53,17 +53,17 @@ export default function Home() {
             />
             <p className="bg-gray-50 rounded-[4px] p-5 text-xl w-full md:w-1/2">
               Organize suas tarefas diárias de forma simples e eficiente. Com o
-              TodoApp, você pode criar, editar, concluir e excluir suas tarefas
+              Flowist, você pode criar, editar, concluir e excluir suas tarefas
               a qualquer momento. Tenha controle do seu dia, aumente sua
               produtividade e nunca mais esqueça de nada importante. <br />
               <br />
               Nosso objetivo é facilitar sua rotina com uma interface intuitiva
               e responsiva, permitindo que você se concentre no que realmente
-              importa. Com o TodoApp, você pode priorizar tarefas, acompanhar
+              importa. Com o Flowist, você pode priorizar tarefas, acompanhar
               seu progresso e transformar sua organização pessoal em um hábito
               natural. <br />
               <br />
-              Seja para estudos, trabalho ou tarefas domésticas, o TodoApp está
+              Seja para estudos, trabalho ou tarefas domésticas, o Flowist está
               sempre com você. Comece agora a mudar sua forma de planejar o dia
               — de forma prática, clara e eficiente.
             </p>

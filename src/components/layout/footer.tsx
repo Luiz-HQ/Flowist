@@ -3,7 +3,7 @@ export default function Footer() {
     <footer className="bg-[#18181B] text-white p-5 mt-10 w-full h-full">
       <div className="container mx-auto text-center">
         <p className="text-sm">
-          &copy; {new Date().getFullYear()} TodoApp. Todos os direitos
+          &copy; {new Date().getFullYear()} Flowist. Todos os direitos
           reservados.
         </p>
         <p className="text-xs mt-2">
