@@ -2,16 +2,13 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "../../../../lib/prisma";
 import { getUserFromRequest } from "@/lib/session";
 
-export async function PUT(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function PUT(req: NextRequest, ctx: { params: { id: string } }) {
   try {
     const user = await getUserFromRequest(req);
     const userId = user.id;
 
     const { title, description, status } = await req.json();
-    const { id } = params;
+    const { id } = await ctx.params;
 
     const updatedTask = await prisma.task.update({
       where: { id, userId },
@@ -30,13 +27,13 @@ export async function PUT(
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  ctx: { params: { id: string } }
 ) {
   try {
     const user = await getUserFromRequest(req);
     const userId = user.id;
 
-    const { id } = params;
+    const { id } = await ctx.params;
 
     const deletedTask = await prisma.task.deleteMany({
       where: { id, userId },
