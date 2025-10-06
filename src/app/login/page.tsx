@@ -17,13 +17,24 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "react-toastify";
+import { Eye, EyeOff } from "lucide-react";
 
 export default function Login() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPasword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [tab, setTab] = useState("login");
   const router = useRouter();
+
+  const handleTab = (value: string) => {
+    setTab(value);
+    setEmail("");
+    setPasword("");
+    setName("");
+    setConfirmPassword("");
+  };
 
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
@@ -43,6 +54,11 @@ export default function Login() {
   const handleRegister = async (e: FormEvent) => {
     e.preventDefault();
 
+    if (password !== confirmPassword) {
+      toast.error("As senhas não coincidem.");
+      return;
+    }
+
     try {
       const res = await register(name, email, password);
       if (res) {
@@ -61,7 +77,7 @@ export default function Login() {
     <div className="flex items-center justify-center h-screen bg-gray-100">
       <Tabs
         value={tab}
-        onValueChange={setTab}
+        onValueChange={handleTab}
         className="w-full max-w-sm m-4 md:m-0 gap-6"
         defaultValue="login"
       >
@@ -97,15 +113,21 @@ export default function Login() {
                     className="rounded-[4px]"
                   />
                 </div>
-                <div className="grid gap-3">
+                <div className="grid gap-3 relative">
                   <Label htmlFor="login-password">Senha</Label>
                   <Input
-                    type="password"
                     id="login-password"
+                    type={showPassword ? "text" : "password"}
                     value={password}
                     onChange={(e) => setPasword(e.target.value)}
                     className="rounded-[4px]"
                   />
+                  <div
+                    className="text-gray-500 absolute top-7.5 right-1 p-1 rounded cursor-pointer"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </div>
                 </div>
               </CardContent>
               <CardFooter className="flex flex-col gap-4">
@@ -151,15 +173,37 @@ export default function Login() {
                     className="rounded-[4px]"
                   />
                 </div>
-                <div className="grid gap-3">
+                <div className="grid gap-3 relative">
                   <Label htmlFor="register-password">Senha</Label>
                   <Input
                     id="register-password"
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     value={password}
                     onChange={(e) => setPasword(e.target.value)}
                     className="rounded-[4px]"
                   />
+                  <div
+                    className="text-gray-500 absolute top-7.5 right-1 p-1 rounded cursor-pointer"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </div>
+                </div>
+                <div className="grid gap-3 relative">
+                  <Label htmlFor="register-password">Confimar senha</Label>
+                  <Input
+                    id="register-confirm-password"
+                    type={showPassword ? "text" : "password"}
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    className="rounded-[4px]"
+                  />
+                  <div
+                    className="text-gray-500 absolute top-7.5 right-1 p-1 rounded cursor-pointer"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </div>
                 </div>
               </CardContent>
               <CardFooter className="flex flex-col gap-4">
