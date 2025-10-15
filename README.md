@@ -34,6 +34,8 @@ Este projeto foi construído utilizando as seguintes tecnologias:
   - [**TypeScript**](https://www.typescriptlang.org/) (Tipagem)
 - **Backend:**
   - **API Routes do Next.js** (Serverless Functions)
+- **Testes (E2E):**
+  - [Cypress](https://www.cypress.io/ ) (Para testes automatizados de ponta a ponta)
 - **Interatividade:**
   - [**dnd-kit**](https://dndkit.com/) (Para a funcionalidade de Arrastar e Soltar)
 - **UI/Componentes:**
@@ -54,6 +56,23 @@ Este projeto foi construído utilizando as seguintes tecnologias:
 - 🔍 **Busca de Tarefas:** Encontre rapidamente a tarefa que você procura.
 - 🔐 **Autenticação de Usuários:** Cada usuário tem seu próprio quadro de tarefas.
 
+---
+
+### ✨ Testes Automatizados com Cypress
+
+Para garantir a qualidade e a estabilidade da aplicação, o projeto conta com uma suíte de testes End-to-End (E2E) que simula o comportamento do usuário e valida os fluxos críticos.
+
+-   ✅ **Testes de Autenticação:** Cobertura completa do fluxo de cadastro e login.
+-   ✅ **Testes de Gerenciamento de Tarefas (CRUD):** Validação da criação, edição e exclusão de tarefas.
+
+**Para executar os testes localmente:**
+
+1.  Siga os passos da seção "Como Executar o Projeto Localmente" para ter a aplicação rodando.
+2.  Em um novo terminal, execute o comando para abrir a interface do Cypress:
+    ```bash
+    npx cypress open
+    ```
+    
 ---
 
 ## ⚙️ Como Executar o Projeto Localmente
