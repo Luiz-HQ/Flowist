@@ -20,7 +20,7 @@
 
 **Flowist** nasceu da necessidade de uma ferramenta de organização que fosse ao mesmo tempo poderosa e simples. Em vez de interfaces complexas, o foco aqui é na clareza e na agilidade. O layout Kanban permite uma visualização clara do progresso de cada tarefa, desde a sua criação até a conclusão, seguindo o fluxo: **A Fazer → Em Andamento → Concluído**.
 
-Este projeto foi desenvolvido como parte do meu portfólio para demonstrar habilidades em desenvolvimento full-stack com um design responsivo e focado na experiência do usuário.
+Este projeto foi desenvolvido para demonstrar habilidades em desenvolvimento full-stack com um design responsivo e focado na experiência do usuário.
 
 ---
 
