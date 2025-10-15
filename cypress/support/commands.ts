@@ -15,7 +15,7 @@
 Cypress.Commands.add("login", (email, password) => {
   // O cy.session é a chave aqui. Ele armazena e restaura os cookies.
   cy.session([email, password], () => {
-    cy.visit("http://localhost:3000/login"); // Visita a página principal
+    cy.visit("https://flowist-seven.vercel.app/login"); // Visita a página principal
 
     cy.get("#login-email").type(email);
     cy.get("#login-password").type(password);
