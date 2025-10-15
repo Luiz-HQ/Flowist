@@ -96,9 +96,9 @@ Para rodar este projeto na sua máquina, siga os passos abaixo:
     ```bash
     npm install
     ```
-4. Configure as variáveis de ambiente
+4. **Configure as variáveis de ambiente**
 
-Este projeto utiliza variáveis de ambiente para gerenciar chaves sensíveis. Para configurar seu ambiente local, siga os passos:
+   Este projeto utiliza variáveis de ambiente para gerenciar chaves sensíveis. Para configurar seu ambiente local, siga os passos:
 
 - Na raiz do projeto, crie uma cópia do arquivo `.env.example` e renomeie-a para `.env`. Você pode fazer isso com o seguinte comando:
     ```bash
@@ -106,11 +106,11 @@ Este projeto utiliza variáveis de ambiente para gerenciar chaves sensíveis. Pa
     ```
 - Abra o novo arquivo `.env` e substitua os valores de exemplo pelas suas próprias chaves de desenvolvimento. O arquivo `.env` é ignorado pelo Git por razões de segurança.
 
- ```env
-   DATABASE_URL="sua_string_de_conexao_do_BancodeDados_aqui"
+   ```env
+     DATABASE_URL="sua_string_de_conexao_do_BancodeDados_aqui"
 
-   NEXT_PUBLIC_JWT_SECRET="sua_chave_secreta_para_jwt_aqui_pode_ser_qualquer_string_longa_e_aleatoria"
- ```
+     NEXT_PUBLIC_JWT_SECRET="sua_chave_secreta_para_jwt_aqui_pode_ser_qualquer_string_longa_e_aleatoria"
+   ```
 
 5.  **Inicie o servidor de desenvolvimento:**
 
