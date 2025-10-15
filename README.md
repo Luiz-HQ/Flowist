@@ -100,7 +100,7 @@ Para rodar este projeto na sua máquina, siga os passos abaixo:
 
    Este projeto utiliza variáveis de ambiente para gerenciar chaves sensíveis. Para configurar seu ambiente local, siga os passos:
 
-- Na raiz do projeto, crie uma cópia do arquivo `.env.example` e renomeie-a para `.env`. Você pode fazer isso com o seguinte comando:
+- Na raiz do projeto, crie uma cópia do arquivo `.env.example` e renomeie-a para `.env` Você pode fazer isso com o seguinte comando:
     ```bash
     cp .env.example .env
     ```
