@@ -33,6 +33,7 @@ export default function TaskCard({
   return (
     <>
       <Card
+        data-cy="task-card"
         id={task.id}
         className={`w-full max-w-2xl p-2 rounded-[4px] ${
           isDone ? doneStyle : ""
@@ -60,6 +61,7 @@ export default function TaskCard({
             variant="link"
             className="transition-transform duration-200 ease-in-out hover:scale-140"
             onClick={() => onEdit(task)}
+            aria-label="Editar tarefa"
           >
             <Icon className="text-blue-500 cursor-pointer" icon="tabler:edit" />
           </Button>
@@ -67,6 +69,7 @@ export default function TaskCard({
             variant="link"
             className="transition-transform duration-200 ease-in-out hover:scale-140"
             onClick={() => onDelete(task.id)}
+            aria-label="Deletar tarefa"
           >
             <Icon
               className="text-red-500 cursor-pointer"
